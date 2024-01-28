@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +8,10 @@
         DEVELOPER-NAME : GONA
         SITE: www.amugona.com
     -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Noto Sans KR', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -18,9 +19,20 @@
             margin: 0;
         }
 
+        .main-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
         .checklist-container {
             border: 1px solid black;
             padding: 20px;
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            gap: 10px; /* 버튼 사이의 간격 */
         }
 
         #checklist, #checklist li {
@@ -37,6 +49,46 @@
             cursor: pointer; /* 추가: 편집 가능함을 나타내는 커서 스타일 */
         }
 
+        #itemInput {
+            padding: 10px;
+            font-size: 16px;
+            font-weight: bold; /* 글자 굵게 */
+            margin-bottom: 10px; /* 여백 추가 */
+            font-weight: bold; /* 글자 굵게 */
+            border: 1px solid #dcdcdc;
+            border-radius: 5px; /* 모서리 둥글게 */
+            width: calc(100% - 20px); /* 컨테이너 너비에 맞게 조정 */
+        }
+
+        #addItem, #printList {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold; /* 글자 굵게 */
+            cursor: pointer;
+            border: none;
+            border-radius: 15px; /* 모서리 둥글게 */
+            color: white; /* 글자 색상 */
+            margin: 5px 0; /* 상하 여백 */
+        }
+        #addItem {
+            background-color: #10333f; /* 파스텔 파란색 */
+        }
+        #printList {
+            background-color: #266626; /* 파스텔 초록색 */
+        }
+
+        #manualButton {
+            margin-top: 20px;
+            padding: 10px 20px; /* 패딩을 약간 늘려서 버튼이 더 커 보이도록 합니다. */
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #f0f0f0; /* 은은한 무채색 배경 */
+            border: 1px solid #dcdcdc; /* 경계선도 은은하게 */
+            color: #555; /* 글자 색상도 은은하게 */
+            border-radius: 15px; /* 버튼의 모서리를 둥글게 만듭니다. */
+        }
+
+
         @media print {
             body * {
                 visibility: hidden;
@@ -50,6 +102,7 @@
                 display: none; /* 수정: 인쇄 시 이 요소들을 레이아웃에서 제거 */
                 visibility: hidden;
             }
+
 
             .checklist-container {
                 position: absolute;
@@ -70,12 +123,17 @@
     </style>
 </head>
 <body>
-    <div class="checklist-container">
-        <div id="checklistTitle" contenteditable="false">체크리스트</div> <!-- contenteditable 속성을 false로 초기 설정 -->
-        <input type="text" id="itemInput" placeholder="Enter checklist item">
-        <button id="addItem">Add Item</button>
-        <button id="printList">Print Checklist</button>
-        <ul id="checklist"></ul>
+    <div class="main-container">
+        <div class="checklist-container">
+            <div id="checklistTitle" contenteditable="false">체크리스트</div> <!-- contenteditable 속성을 false로 초기 설정 -->
+            <input type="text" id="itemInput" placeholder="Enter checklist item">
+            <div class="button-container">
+                <button id="addItem">추가하기</button>
+                <button id="printList">인쇄하기</button>
+            </div>
+            <ul id="checklist"></ul>
+        </div>
+            <button id="manualButton">사용설명서</button>
     </div>
     <script>
         document.getElementById('addItem').addEventListener('click', function() {
@@ -107,6 +165,10 @@
                 event.preventDefault();
                 document.getElementById('addItem').click();
             }
+        });
+
+        document.getElementById('manualButton').addEventListener('click', function() {
+            window.open('https://github.com/2020AMGN/open_check_list/blob/master/README.md', '_blank');
         });
 
     </script>
