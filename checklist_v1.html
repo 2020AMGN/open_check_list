@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printable Checklist</title>
+    <!--
+        DEVELOPER-NAME : GONA
+        SITE: www.amugona.com
+    -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .checklist-container {
+            border: 1px solid black;
+            padding: 20px;
+        }
+
+        #checklist, #checklist li {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        #checklistTitle {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+            cursor: pointer; /* 추가: 편집 가능함을 나타내는 커서 스타일 */
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            
+            .checklist-container, .checklist-container * {
+                visibility: visible;
+            }
+
+            #addItem, #itemInput, #printList {
+                display: none; /* 수정: 인쇄 시 이 요소들을 레이아웃에서 제거 */
+                visibility: hidden;
+            }
+
+            .checklist-container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                padding: 20px;
+                border: 1px solid black;
+            }
+
+            #checklistTitle {
+                text-align: center;
+            }
+
+            #checklist {
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="checklist-container">
+        <div id="checklistTitle" contenteditable="false">체크리스트</div> <!-- contenteditable 속성을 false로 초기 설정 -->
+        <input type="text" id="itemInput" placeholder="Enter checklist item">
+        <button id="addItem">Add Item</button>
+        <button id="printList">Print Checklist</button>
+        <ul id="checklist"></ul>
+    </div>
+    <script>
+        document.getElementById('addItem').addEventListener('click', function() {
+            var itemText = document.getElementById('itemInput').value;
+            if (itemText) {
+                var listItem = document.createElement('li');
+                listItem.innerHTML = '<input type="checkbox">' + itemText;
+                document.getElementById('checklist').appendChild(listItem);
+                document.getElementById('itemInput').value = '';
+            }
+        });
+
+        document.getElementById('printList').addEventListener('click', function() {
+            window.print();
+        });
+
+        // checklistTitle 요소에 대한 더블클릭 이벤트 리스너 추가
+        document.getElementById('checklistTitle').addEventListener('dblclick', function() {
+            this.contentEditable = true; // 더블클릭 시 편집 가능하도록 설정
+            this.focus(); // 편집을 시작하도록 요소에 포커스
+        });
+
+        // 사용자가 다른 곳을 클릭하면 편집을 중단하고 변경 사항 저장
+        document.getElementById('checklistTitle').addEventListener('blur', function() {
+            this.contentEditable = false; // 편집 불가능하도록 설정
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Printable Checklist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .checklist-container {
+            border: 1px solid black;
+            padding: 20px;
+            /* text-align: center; */
+        }
+
+        #checklist, #checklist li {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+
+        #checklistTitle {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+
+            #checklistTitle #checklist, #checklist * {
+                visibility: visible;
+            }
+
+            #checklist {
+                position: absolute;
+                left: 0;
+                top: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="checklist-container">
+        <div id="checklistTitle">체크리스트</div>
+        <input type="text" id="itemInput" placeholder="Enter checklist item">
+        <button id="addItem">Add Item</button>
+        <button id="printList">Print Checklist</button>
+        <ul id="checklist"></ul>
+    </div>
+    <script>
+        document.getElementById('addItem').addEventListener('click', function() {
+            var itemText = document.getElementById('itemInput').value;
+            if (itemText) {
+                var listItem = document.createElement('li');
+                listItem.innerHTML = '<input type="checkbox">' + itemText;
+                document.getElementById('checklist').appendChild(listItem);
+                document.getElementById('itemInput').value = '';
+            }
+        });
+
+        document.getElementById('printList').addEventListener('click', function() {
+            window.print();
+        });
+    </script>
+</body>
+</html>

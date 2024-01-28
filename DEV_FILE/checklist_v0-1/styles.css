@@ -1,0 +1,38 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.checklist-container, #checklist, #checklist li {
+    /*text-align: center;*/
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0;
+}
+
+/* Updated print styles */
+@media print {
+    body {
+        visibility: visible;
+        /* width: 105mm;
+        height: 148mm; */
+    }
+    .checklist-container, {
+        visibility: visible;
+
+    }
+
+    #itemInput, #addItem, #printList {
+        visibility: hidden;
+    }
+
+    #checklist {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}
