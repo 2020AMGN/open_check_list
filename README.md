@@ -34,6 +34,7 @@
 
 - 개발자: GONA
 - 웹사이트: [www.amugona.com](http://www.amugona.com)
+- 동작 사이트 : [LINK](https://2020amgn.github.io/open_check_list/)
 
 ## 라이선스
 
